@@ -22,26 +22,23 @@ def emotion_detector_route():
     
 @app.route("/", methods=['GET'])
 def home():
-    text_to_analyze = request.args.get('textToAnalyze', '').strip()
-    result = None
-
-    if text_to_analyze:
-        response = emotion_detector(text_to_analyze)
-        anger = response['anger']
-        disgust = response['disgust']
-        fear = response['fear']
-        joy = response['joy']
-        sadness = response['sadness']
-        dominant = response['dominant_emotion']
-
+    text = request.args.get('textToAnalyze', '').strip()
+    
+    response = emotion_detector(text)
+    
+    # If anger is None → means either empty input or API error
+    if response['anger'] is None:
+        result = "Invalid input! Please enter some text."
+    else:
         result = (
             f"For the given statement, the system response is "
-            f"'anger': {anger:.6f}, 'disgust': {disgust:.6f}, 'fear': {fear:.6f}, "
-            f"'joy': {joy:.6f}, 'sadness': {sadness:.6f}. "
-            f"The dominant emotion is <strong>{dominant}</strong>."
+            f"'anger': {response['anger']:.6f}, "
+            f"'disgust': {response['disgust']:.6f}, "
+            f"'fear': {response['fear']:.6f}, "
+            f"'joy': {response['joy']:.6f}, "
+            f"'sadness': {response['sadness']:.6f}. "
+            f"The dominant emotion is <strong>{response['dominant_emotion']}</strong>."
         )
-    elif text_to_analyze == "":
-        result = "Invalid input! Please enter some text."
 
     return render_template(
         'index.html',
