@@ -18,7 +18,7 @@ def emotion_detector(text_to_analyze):
             'dominant_emotion': None
         }
     
-    response_dict = json.loads(response.text_to_analyze)
+    response_dict = json.loads(response.text)
     emotions = response_dict['emotionPredictions'][0]['emotion']
     
     anger = emotions['anger']
