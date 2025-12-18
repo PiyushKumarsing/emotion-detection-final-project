@@ -3,37 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="./static/mywebscript.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        .center-heading {
-            text-align: center;
-        }
+        .center-heading { text-align: center; }
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="card mx-auto mt-5" style="max-width: 800px;">
         <div class="card-body">
             <h1 class="center-heading">NLP - Emotion Detection</h1> 
             
-            <div style="padding: 25px 25px 25px 25px;">
-                <h2 class="mb-3">
+            <form action="/" method="GET">
+                <div style="padding: 25px;">
                     <label class="form-label">Please enter the text to be analyzed</label>
-                    <textarea class="form-control" id="textToAnalyze" rows="5"></textarea>
-                </h2>
-            </div>
+                    <textarea class="form-control" name="textToAnalyze" rows="5">{{ input_text }}</textarea>
+                </div>
 
-            <div style="padding: 25px 25px 25px 25px;">
-                <button onclick="RunSentimentAnalysis()" class="btn btn-secondary">Run Sentiment Analysis</button>
-            </div>
+                <div style="padding: 25px;">
+                    <button type="submit" class="btn btn-secondary">Run Sentiment Analysis</button>
+                </div>
+            </form>
             
-            <div style="padding: 25px 25px 25px 25px;"></div>
+            <div style="padding: 25px;"></div>
             
             <h2 class="mb-3">
                 <label class="form-label">Result of Emotion Detection</label>
             </h2>
 
-            <div id="system_response" style="padding: 25px 25px 25px 25px;"></div>
+            <div style="padding: 25px 25px 25px 25px; background-color: #f8f9fa; border-radius: 8px;">
+                {{ result | safe }}
+            </div>
         </div>
     </div>
 </body>
